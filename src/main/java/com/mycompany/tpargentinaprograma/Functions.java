@@ -5,6 +5,7 @@
 package com.mycompany.tpargentinaprograma;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,9 +21,9 @@ public class Functions {
 
     private static void readResult(List<String> round) throws IOException {
         int iteration = 0;
-        for (String result : round) {
-            if (iteration != 0) {
-                System.out.println(result);
+        for (String result : round) {   
+            if (iteration != 0) {     
+                System.out.println(Arrays.toString(result.split(";")));
                 iteration++;
             }
             iteration++;
@@ -30,10 +31,11 @@ public class Functions {
     }
 
     private static void readPronostic(List<String> pronostic) throws IOException {
+        
         int iteration = 0;
         for (String result : pronostic) {
             if (iteration != 0) {
-                System.out.println(result);
+                System.out.println(Arrays.toString(result.split(";")));
                 iteration++;
             }
             iteration++;
