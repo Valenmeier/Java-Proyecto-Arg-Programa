@@ -3,9 +3,9 @@
  */
 package com.mycompany.tpargentinaprograma;
 
+import static com.mycompany.tpargentinaprograma.Utils.getFile;
+import static com.mycompany.tpargentinaprograma.Functions.comparePronosticWithResult;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -19,16 +19,9 @@ import java.util.List;
 public class TpArgentinaPrograma {
 
     public static void main(String[] args) throws IOException {
-        List<String> obtenerArchivos = obtenerArchivos("src\\main\\java\\com\\mycompany\\tpargentinaprograma\\Archivos\\archivo.csv");
-        System.out.println(obtenerArchivos.size());
-        for(String result : obtenerArchivos){
-           System.out.println(result);
-        };
-        
+        List<String> round = getFile("src\\main\\java\\com\\mycompany\\resources\\rounds\\round1.csv");
+        List<String> pronostic = getFile("src\\main\\java\\com\\mycompany\\resources\\pronostics\\pronostic1.csv");
+        comparePronosticWithResult(round, pronostic);
     }
 
-    public static List<String> obtenerArchivos(String path) throws IOException {
-        String archivo = path;
-        return Files.readAllLines(Paths.get(archivo));  
-    }
 }
