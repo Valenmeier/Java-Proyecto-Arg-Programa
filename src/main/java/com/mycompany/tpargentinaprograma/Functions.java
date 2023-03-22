@@ -5,7 +5,7 @@
 package com.mycompany.tpargentinaprograma;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,30 +15,52 @@ import java.util.List;
 public class Functions {
 
     public static void comparePronosticWithResult(List<String> round, List<String> pronostic) throws IOException {
-        readResult(round);
-        readPronostic(pronostic);
-    }
-
-    private static void readResult(List<String> round) throws IOException {
-        int iteration = 0;
-        for (String result : round) {   
-            if (iteration != 0) {     
-                System.out.println(Arrays.toString(result.split(";")));
-                iteration++;
+        String[] partidoResult=readResult(round);
+        String[] pronosticResult=readPronostic(pronostic);
+        int resultPoints=0;
+         for (int i = 0; i < partidoResult.length; i++) {
+            if(partidoResult[i].equals(pronosticResult[i])){
+                resultPoints++;
             }
-            iteration++;
         }
+          System.out.println("TotalPoints:"+ "" +resultPoints);
     }
 
-    private static void readPronostic(List<String> pronostic) throws IOException {
-        
+    private static String[] readResult(List<String> round) throws IOException {
+        List<String[]> partidos = new ArrayList<>();
+
+        for (String line : round) {
+            String[] cells = line.split(";");
+            partidos.add(cells);
+        }
         int iteration = 0;
-        for (String result : pronostic) {
+        String[] resultados = new String[partidos.size() - 1];
+        for (String[] partido : partidos) {
             if (iteration != 0) {
-                System.out.println(Arrays.toString(result.split(";")));
-                iteration++;
+                Partidos result = new Partidos(partido);
+                resultados[iteration - 1] = result.getResult();
             }
             iteration++;
         }
+        return resultados;
+    }
+
+    private static String[] readPronostic(List<String> pronostics) throws IOException {
+        List<String[]> allPronostics = new ArrayList<>();
+
+        for (String line : pronostics) {
+            String[] cells = line.split(";");
+            allPronostics.add(cells);
+        }
+        int iteration = 0;
+        String[] resultados = new String[allPronostics.size() - 1];
+        for (String[] pronostic : allPronostics) {
+            if (iteration != 0) {
+                Pronostic result = new Pronostic(pronostic);
+                resultados[iteration - 1] = result.getPronostic();
+            }
+            iteration++;
+        }
+        return resultados;
     }
 }
